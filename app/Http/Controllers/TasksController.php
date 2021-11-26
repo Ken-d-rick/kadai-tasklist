@@ -38,6 +38,11 @@ class TasksController extends Controller
         $request->validate([
             'status' => 'required|max:10',   // 追加
             'content' => 'required|max:255',
+        ],
+        [
+            'status.required' => '空文字を許さない',
+            'status.max' => '10文字を超える文字数を許さない',
+            'content.required'=> '空文字を許さない',
         ]);
         
         // メッセージを作成
@@ -81,6 +86,11 @@ class TasksController extends Controller
         $request->validate([
             'status' => 'required|max:10',   // 追加
             'content' => 'required|max:255',
+        ],
+        [
+            'status.required' => '空文字を許さない',
+            'status.max' => '10文字を超える文字数を許さない',
+            'content.required'=> '空文字を許さない',
         ]);
         
         // idの値でメッセージを検索して取得
