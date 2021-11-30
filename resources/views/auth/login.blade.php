@@ -1,7 +1,43 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="text-center">
+        <h1>Log in</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+
+            {!! Form::open(['route' => 'login.post']) !!}
+                <div class="form-group">
+                    {!! Form::label('email', 'Email') !!}
+                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('password', 'Password') !!}
+                    {!! Form::password('password', ['class' => 'form-control']) !!}
+                </div>
+
+                {!! Form::submit('Log in', ['class' => 'btn btn-primary btn-block']) !!}
+            {!! Form::close() !!}
+
+            {{-- ユーザ登録ページへのリンク --}}
+            <p class="mt-2">New user? {!! link_to_route('signup.get', 'Sign up now!') !!}</p>
+        </div>
+    </div>
+@endsection
+ナビゲーションバー
+ログインができるようになったため、ナビゲーションバーを充実させましょう。「Signup」「Login」のリンクはログアウト状態のときのみ表示するようにし、ログイン状態のときはログアウトできるようにします。
+
+まずは以下のコードに書き換えてください。
+
+resources/views/commons/navbar.blade.php
+
 <header class="mb-4">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         {{-- トップページへのリンク --}}
-        <a class="navbar-brand" href="/">TaskList</a>
+        <a class="navbar-brand" href="/">Microposts</a>
 
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
@@ -19,8 +55,6 @@
                             {{-- ユーザ詳細ページへのリンク --}}
                             <li class="dropdown-item"><a href="#">My profile</a></li>
                             <li class="dropdown-divider"></li>
-                            {{-- タスク作成ページへのリンク --}}
-                　　　　　　　　<li class="nav-item">{!! link_to_route('tasks.create', '新規タスクの投稿', [], ['class' => 'nav-link']) !!}</li>
                             {{-- ログアウトへのリンク --}}
                             <li class="dropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
                         </ul>
@@ -31,7 +65,6 @@
                     {{-- ログインページへのリンク --}}
                     <li class="nav-item">{!! link_to_route('login', 'Login', [], ['class' => 'nav-link']) !!}</li>
                 @endif
-                
             </ul>
         </div>
     </nav>
