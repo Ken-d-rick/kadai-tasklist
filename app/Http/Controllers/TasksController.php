@@ -16,7 +16,8 @@ class TasksController extends Controller
             // 認証済みユーザを取得
             $user = \Auth::user();
             
-            //$tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+            
             // タスク一覧を取得
             $tasks = Task::all();
             // タスク一覧ビューでそれを表示
@@ -26,9 +27,10 @@ class TasksController extends Controller
             
             $data = [
                 'user' => $user,
-                'tasklist' => $tasklist,
+                'tasks' => $tasks,
             ];
         }
+        
         // Welcomeビューでそれらを表示
         return view('welcome', $data);
     } 
@@ -58,13 +60,10 @@ class TasksController extends Controller
             'content.required'=> '空文字を許さない',
         ]);
         
-        // タスクを作成
-        //$request->user()->tasks()->create([
-            $task = new Task;
-            $task->status = $request->status;    // 追加
-            $task->content = $request->content;
-            $task->save();
-        //]);
+        $request->user()->tasks()->create([
+            'status' => $request->status,
+            'content' => $request->content,
+        ]);
 
         // トップページへリダイレクトさせる
         return redirect('/');

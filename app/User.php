@@ -43,12 +43,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
-    /**
-     * このユーザに関係するモデルの件数をロードする。
-     */
-    public function loadRelationshipCounts()
-    {
-        $this->loadCount('tasks');
-    }
 }
 
