@@ -6,7 +6,6 @@
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
@@ -19,10 +18,8 @@
                             {{-- ユーザ詳細ページへのリンク --}}
                             <li class="dropdown-item"><a href="#">My profile</a></li>
                             <li class="dropdown-divider"></li>
-                            {{-- タスク作成ページへのリンク --}}
                 　　　　　　　　<li class="nav-item">{!! link_to_route('tasks.create', '新規タスクの投稿', [], ['class' => 'nav-link']) !!}</li>
-                            {{-- ログアウトへのリンク --}}
-                            <li class="dropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
+                            <li class="dropdown-item">{!! link_to_route('logout.get','Logout') !!}</li>
                         </ul>
                     </li>
                 @else
