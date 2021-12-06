@@ -17,9 +17,7 @@ class TasksController extends Controller
             $user = \Auth::user();
             
             $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
-            
-            // タスク一覧を取得
-            $tasks = Task::all();
+
             // タスク一覧ビューでそれを表示
             return view('tasks.index', [
                 'tasks' => $tasks,
@@ -74,6 +72,12 @@ class TasksController extends Controller
     {
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
+        
+        // 認証済みユーザ（閲覧者）がその投稿の所有者でない場合はトップページにリダイレクト
+        if (\Auth::id() != $task->user_id) {
+            // トップページへリダイレクトさせる
+            return redirect('/');
+        }
 
         
         // タスク詳細ビューでそれを表示
@@ -86,6 +90,13 @@ class TasksController extends Controller
     {
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
+        
+        // 認証済みユーザ（閲覧者）がその投稿の所有者でない場合はトップページにリダイレクト
+        if (\Auth::id() != $task->user_id) {
+            // トップページへリダイレクトさせる
+            return redirect('/');
+        }
+
 
         // タスク編集ビューでそれを表示
         return view('tasks.edit', [
@@ -115,7 +126,7 @@ class TasksController extends Controller
             //タスクを編集
             $task->status = $request->status;    // 追加
             $task->content = $request->content;
-            $task->save();
+            $task->save(); 
         }
 
         // トップページへリダイレクトさせる
